@@ -11,4 +11,6 @@ public class Item
     public string Name { get; set; }
     [MaxLength(10)]
     public double Price { get; set; }
+    [MaxLength(1)]
+    public int ListId { get; set; }
 }

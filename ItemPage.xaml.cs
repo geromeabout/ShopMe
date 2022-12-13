@@ -12,19 +12,19 @@ public partial class ItemPage : ContentPage
 		_id = Id;
 		_name = Name;
 		mainLbl.Text = _name;
-		GetItems();
+		GetItems(_id);
 	}
 
-    private void GetItems()
+    private void GetItems(int Id)
     {
-        List<Item> item = App.ItemRepo.GetAllItem();
+        List<Item> item = App.ItemRepo.GetAllItem(Id);
         listItem.ItemsSource = item;
     }
 
     private void BtnAdd_Clicked(object sender, EventArgs e)
     {
-        App.ItemRepo.AddNewItem(EntName.Text, Convert.ToDouble(EntPrice.Text));
-        GetItems();
+        App.ItemRepo.AddNewItem(EntName.Text, Convert.ToDouble(EntPrice.Text), _id);
+        GetItems(_id);
         EntName.Text = "";
         EntPrice.Text = "";
     }

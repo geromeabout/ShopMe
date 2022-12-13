@@ -9,6 +9,9 @@
                              Margin="5,10,5,0">
             <Label x:Name="mainLbl"
                    FontSize="30"/>
+            <Label x:Name="lblCost"
+                   FontSize="30"
+                   HorizontalOptions="End"/>
         </VerticalStackLayout>
         <ListView x:Name="listItem"
                   HasUnevenRows="True"
@@ -19,13 +22,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <VerticalStackLayout>
+                        <HorizontalStackLayout Spacing="20">
                             <CheckBox x:Name="rbSelect"/>
                             <Label Grid.Column="1" Text="{Binding Name}"
-                                   FontSize="25"/>
+                                   FontSize="20"/>
                             <Label Grid.Column="1" Text="{Binding Price}"
-                                   FontSize="25"/>
-                        </VerticalStackLayout>
+                                   FontSize="20"/>
+                        </HorizontalStackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
