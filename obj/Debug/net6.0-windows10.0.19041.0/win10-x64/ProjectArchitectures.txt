@@ -1,0 +1,1 @@
+D:\Projects\Current\ShopMe\ShopMe.csproj;x64
