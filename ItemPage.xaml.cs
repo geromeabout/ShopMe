@@ -13,7 +13,14 @@ public partial class ItemPage : ContentPage
 		_name = Name;
 		mainLbl.Text = _name;
 		GetItems(_id);
+        GetTotalCost(_id);
 	}
+
+    private void GetTotalCost(int Id)
+    {
+        double res = App.ItemRepo.GetTotalCost(Id);
+        lblCost.Text += res;
+    }
 
     private void GetItems(int Id)
     {
@@ -27,5 +34,12 @@ public partial class ItemPage : ContentPage
         GetItems(_id);
         EntName.Text = "";
         EntPrice.Text = "";
+    }
+
+    private void rbSelect_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var check = e.Value;
+        App.ItemRepo.CheckItem(check);
+        GetTotalCost(_id);
     }
 }

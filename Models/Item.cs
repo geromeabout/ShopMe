@@ -13,4 +13,5 @@ public class Item
     public double Price { get; set; }
     [MaxLength(1)]
     public int ListId { get; set; }
+    public bool IsDone { get; set; }
 }

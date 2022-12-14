@@ -49,6 +49,20 @@ public class ItemRepository
         }
 
     }
+    public void CheckItem(bool check) 
+    {
+        int result = 0;
+        try
+        {
+            Init();
+            result = conn.Update(new Item() { IsDone = check });
+        }
+        catch (Exception ex)
+        {
+
+            StatusMessage = string.Format("Something went wrong. {0}", ex.Message); ;
+        }
+    }
     public List<Item> GetAllItem(int id)
     {
         // TODO: Init then retrieve a list of Person objects from the database into a list
@@ -63,5 +77,21 @@ public class ItemRepository
         }
 
         return new List<Item>();
+    }
+    public double GetTotalCost(int Id)
+    {
+        double result = 0;
+        try
+        {
+            Init();
+            result = conn.Table<Item>().Where(c => c.Id == Id && c.IsDone == true).Sum(c => c.Price);
+            
+        }
+        catch (Exception ex)
+        {
+
+            StatusMessage = string.Format("Something went wrong. {0}", ex.Message);
+        }
+        return result;
     }
 }

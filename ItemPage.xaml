@@ -5,14 +5,16 @@
              Title="ItemPage">
     <Grid RowDefinitions="Auto,*,Auto"
           Margin="10,0,10,0">
-        <VerticalStackLayout Grid.Row="0"
+        <HorizontalStackLayout Grid.Row="0"
                              Margin="5,10,5,0">
             <Label x:Name="mainLbl"
-                   FontSize="30"/>
+                   FontSize="20"
+                   HorizontalOptions="FillAndExpand"/>
             <Label x:Name="lblCost"
-                   FontSize="30"
-                   HorizontalOptions="End"/>
-        </VerticalStackLayout>
+                   FontSize="20"
+                   Text="Cost: "
+                   HorizontalOptions="EndAndExpand"/>
+        </HorizontalStackLayout>
         <ListView x:Name="listItem"
                   HasUnevenRows="True"
                   SeparatorColor="Orange"
@@ -23,11 +25,13 @@
                 <DataTemplate>
                     <ViewCell>
                         <HorizontalStackLayout Spacing="20">
-                            <CheckBox x:Name="rbSelect"/>
+                            <CheckBox x:Name="rbSelect" CheckedChanged="rbSelect_CheckedChanged"/>
                             <Label Grid.Column="1" Text="{Binding Name}"
-                                   FontSize="20"/>
+                                   FontSize="20"
+                                   HorizontalOptions="Fill"/>
                             <Label Grid.Column="1" Text="{Binding Price}"
-                                   FontSize="20"/>
+                                   FontSize="20"
+                                   HorizontalOptions="End"/>
                         </HorizontalStackLayout>
                     </ViewCell>
                 </DataTemplate>
