@@ -10,9 +10,11 @@
             <Label x:Name="mainLbl"
                    FontSize="20"
                    HorizontalOptions="FillAndExpand"/>
+            <Label FontSize="20"
+                   Text="Cost: "
+                   HorizontalOptions="FillAndExpand"/>
             <Label x:Name="lblCost"
                    FontSize="20"
-                   Text="Cost: "
                    HorizontalOptions="EndAndExpand"/>
         </HorizontalStackLayout>
         <ListView x:Name="listItem"
@@ -25,7 +27,8 @@
                 <DataTemplate>
                     <ViewCell>
                         <HorizontalStackLayout Spacing="20">
-                            <CheckBox x:Name="rbSelect" CheckedChanged="rbSelect_CheckedChanged"/>
+                            <CheckBox x:Name="rbSelect" CheckedChanged="rbSelect_CheckedChanged"
+                                      IsChecked="{Binding IsDone}"/>
                             <Label Grid.Column="1" Text="{Binding Name}"
                                    FontSize="20"
                                    HorizontalOptions="Fill"/>

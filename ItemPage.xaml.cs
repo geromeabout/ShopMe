@@ -19,7 +19,7 @@ public partial class ItemPage : ContentPage
     private void GetTotalCost(int Id)
     {
         double res = App.ItemRepo.GetTotalCost(Id);
-        lblCost.Text += res;
+        lblCost.Text = Convert.ToString(res);
     }
 
     private void GetItems(int Id)
@@ -30,7 +30,13 @@ public partial class ItemPage : ContentPage
 
     private void BtnAdd_Clicked(object sender, EventArgs e)
     {
-        App.ItemRepo.AddNewItem(EntName.Text, Convert.ToDouble(EntPrice.Text), _id);
+        var item = new Models.Item
+        {
+            Name = EntName.Text,
+            Price = Convert.ToDouble(EntPrice.Text),
+            ListId = _id
+        };
+        App.ItemRepo.AddNewItem(item);
         GetItems(_id);
         EntName.Text = "";
         EntPrice.Text = "";
@@ -38,8 +44,12 @@ public partial class ItemPage : ContentPage
 
     private void rbSelect_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        var check = e.Value;
-        App.ItemRepo.CheckItem(check);
+        var item = new Models.Item
+        {
+            ListId = _id,
+            IsDone = e.Value
+        };
+        App.ItemRepo.CheckItem(item);
         GetTotalCost(_id);
     }
 }

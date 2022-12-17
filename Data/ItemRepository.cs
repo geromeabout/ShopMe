@@ -1,5 +1,7 @@
 ﻿using SQLite;
 using ShopMe.Models;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace ShopMe.Data;
 
@@ -25,7 +27,7 @@ public class ItemRepository
     {
         _dbPath = dbPath;
     }
-    public void AddNewItem(string name, double price, int id)
+    public void AddNewItem(Item item)
     {
         int result = 0;
         try
@@ -34,28 +36,29 @@ public class ItemRepository
             Init();
 
             // basic validation to ensure a name was entered
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(item.Name))
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
             //result = 0;
-            result = conn.Insert(new Item { Name = name, Price = price, ListId = id });
+            result = conn.Insert(new Item { Name = item.Name, Price = item.Price, ListId = item.ListId });
 
-            StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
+            StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, item.Name);
         }
         catch (Exception ex)
         {
-            StatusMessage = string.Format("Failed to add {0}. Error: {1}", name, ex.Message);
+            StatusMessage = string.Format("Failed to add {0}. Error: {1}", item.Name, ex.Message);
         }
 
     }
-    public void CheckItem(bool check) 
+    public void CheckItem(Item item) 
     {
         int result = 0;
         try
         {
             Init();
-            result = conn.Update(new Item() { IsDone = check });
+            result = conn.Update(new Item { IsDone = item.IsDone, ListId = item.ListId });
+
         }
         catch (Exception ex)
         {
@@ -80,11 +83,11 @@ public class ItemRepository
     }
     public double GetTotalCost(int Id)
     {
-        double result = 0;
+        double result = 0.0;
         try
         {
             Init();
-            result = conn.Table<Item>().Where(c => c.Id == Id && c.IsDone == true).Sum(c => c.Price);
+            result = conn.Table<Item>().Where(c => c.ListId == Id && c.IsDone == true).Sum(c => c.Price);
             
         }
         catch (Exception ex)
